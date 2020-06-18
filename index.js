@@ -12,8 +12,9 @@ const sendJSON = () => {
     const client = new net.Socket();
     client.connect(PORT, IP, () => {
       console.log('Connected');
-      client.write(json);
-      client.destroy();
+      client.write(json, () => {
+        client.destroy();
+      });
     });
     
     client.on('close', () => {
